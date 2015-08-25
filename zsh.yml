@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+    - file: src=dotfiles/files/{{ item }} dest=~/.{{ item }} state=link
+      with_items:
+        - zshrc
+
+    - git:
+        repo: git://github.com/robbyrussell/oh-my-zsh.git
+        dest: ~/.oh-my-zsh
+
+    - apt: name={{ item }} state=latest
+      become: yes
+      with_items:
+        - zsh
+      when: ansible_distribution == 'Ubuntu'

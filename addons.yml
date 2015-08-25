@@ -2,6 +2,18 @@
 - hosts: all
 
   tasks:
+    - apt_repository: repo='ppa:staticfloat/juliareleases' state=present
+      when: ansible_distribution == 'Ubuntu'
+      tags: always
+
+    - apt_repository: repo='ppa:staticfloat/julia-deps' state=present
+      when: ansible_distribution == 'Ubuntu'
+      tags: always
+
+    - apt: update_cache=yes cache_valid_time=1800
+      when: ansible_distribution == 'Ubuntu'
+      tags: always
+
     - apt: name={{ item }} state=latest
       become: yes
       with_items:
@@ -12,7 +24,7 @@
         - python-pycurl
         - python-dev
         - python-setuptools
-        - flex
+        - julia
       when: ansible_distribution == 'Ubuntu'
       tags: always
 
@@ -20,50 +32,9 @@
       become: yes
       tags: always
 
-    - shell: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-      become: yes
-      tags:
-        - all
-        - php
-
-    - shell: composer global require "squizlabs/php_codesniffer=*"
-      # become: yes
-      tags:
-        - all
-        - php
-
     - pip: name={{ item }} state=latest
       become: yes
       with_items:
         - pylint
         - ansible-lint
-        - bashate
       tags: always
-
-    - shell: cabal update && cabal install ghc-mod
-      tags:
-        - all
-        - haskell
-
-    - gem: name={{ item }} state=latest user_install=no
-      with_items:
-        - haml-lint
-        - ruby-lint
-        - sqlint
-        - rubocop
-      tags:
-        - all
-        - ruby
-
-    - npm: name={{ item }} global=yes state=latest
-      become: yes
-      with_items:
-        - bower
-        - js-yaml
-        - eslint # NOTE: http://eslint.org/docs/configuring/ for enabling jsx
-        - babel-eslint
-        - eslint-plugin-react
-        - jsonlint
-      tags:
-        - all
-        - node

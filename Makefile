@@ -3,6 +3,9 @@ vim:
 
 update_plugins: vim
 
+zsh:
+	ansible-playbook zsh.yml -i local -vv
+
 TAGS := always
 
 addons:
