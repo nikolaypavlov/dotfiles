@@ -1,6 +1,3 @@
-" Pathogen for plugin management
-execute pathogen#infect()
-
 syntax on
 set tabstop=2 shiftwidth=2 softtabstop=2
 set expandtab
@@ -36,7 +33,6 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'JuliaLang/julia-vim'
-Plugin 'zyedidia/julialint.vim'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'derekwyatt/vim-sbt'
 

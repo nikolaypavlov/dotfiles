@@ -10,7 +10,7 @@
         dest: ~/.oh-my-zsh
 
     - apt: name={{ item }} state=latest
-      become: yes
+      sudo: yes
       with_items:
         - zsh
       when: ansible_distribution == 'Ubuntu'

@@ -2,20 +2,12 @@
 - hosts: all
 
   tasks:
-    - apt_repository: repo='ppa:staticfloat/juliareleases' state=present
-      when: ansible_distribution == 'Ubuntu'
-      tags: always
-
-    - apt_repository: repo='ppa:staticfloat/julia-deps' state=present
-      when: ansible_distribution == 'Ubuntu'
-      tags: always
-
     - apt: update_cache=yes cache_valid_time=1800
       when: ansible_distribution == 'Ubuntu'
       tags: always
 
     - apt: name={{ item }} state=latest
-      become: yes
+      sudo: yes
       with_items:
         - ack-grep
         - exuberant-ctags
@@ -24,17 +16,39 @@
         - python-pycurl
         - python-dev
         - python-setuptools
+      when: ansible_distribution == 'Ubuntu'
+      tags: always
+
+    - apt_repository: repo='ppa:staticfloat/juliareleases' state=present
+      sudo: yes
+      when: ansible_distribution == 'Ubuntu'
+      tags: always
+
+    - apt_repository: repo='ppa:staticfloat/julia-deps' state=present
+      sudo: yes
+      when: ansible_distribution == 'Ubuntu'
+      tags: always
+
+    - apt: name={{ item }} state=latest
+      sudo: yes
+      with_items:
         - julia
       when: ansible_distribution == 'Ubuntu'
       tags: always
 
     - easy_install: name=pip
-      become: yes
+      sudo: yes
       tags: always
 
     - pip: name={{ item }} state=latest
-      become: yes
+      sudo: yes
       with_items:
         - pylint
         - ansible-lint
+        - numpy
+        - pandas
+        - ipython[notebook]
+      tags: always
+
+    - shell: julia -e 'Pkg.update(); Pkg.add("IJulia")'
       tags: always

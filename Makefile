@@ -1,10 +1,8 @@
+zsh:
+	ansible-playbook zsh.yml -i local -vv -K
+
 vim:
 	ansible-playbook vim.yml -i local -vv
-
-update_plugins: vim
-
-zsh:
-	ansible-playbook zsh.yml -i local -vv
 
 TAGS := always
 
