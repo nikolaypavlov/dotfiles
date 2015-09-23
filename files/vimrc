@@ -44,6 +44,7 @@ set laststatus=2
 
 " syntastic config
 let g:syntastic_ignore_files = ['\m\c\.h$', '\m\.sbt$'] "ignore .sbt
+let g:syntastic_quiet_messages = { "regex": "missing-docstring" }
 let g:syntastic_scala_checkers = ['fsc']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
