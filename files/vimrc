@@ -1,6 +1,8 @@
+" Pathogen for plugin management
+" execute pathogen#infect()
+
 syntax on
-set tabstop=2 shiftwidth=2 softtabstop=2
-set expandtab
+set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab
 " set autoindent
 
 " set leader key
@@ -18,6 +20,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'ervandew/supertab'
@@ -33,8 +36,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'chase/vim-ansible-yaml'
 Plugin 'JuliaLang/julia-vim'
-Plugin 'derekwyatt/vim-scala'
-Plugin 'derekwyatt/vim-sbt'
+Plugin 'zyedidia/julialint.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -46,7 +48,9 @@ set laststatus=2
 let g:syntastic_ignore_files = ['\m\c\.h$', '\m\.sbt$'] "ignore .sbt
 let g:syntastic_quiet_messages = { "regex": "missing-docstring" }
 let g:syntastic_scala_checkers = ['fsc']
+let g:syntastic_python_checkers=['flake8']
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height= 4
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
@@ -54,6 +58,9 @@ let g:syntastic_check_on_wq = 0
 " Bash like file completion
 set wildmode=longest,list,full
 set wildmenu
+
+" Do not show preview window
+set completeopt-=preview
 
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -85,6 +92,11 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable git commit message helpers :
+" - spell checking
+" - automatic wrapping at recommended 72 columns
+autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
