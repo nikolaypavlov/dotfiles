@@ -36,12 +36,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-export PYTHONPATH=~/repos/caffe/python:/Library/Python/2.7/site-packages:$PYTHONPATH
-
-# Set editor
-export EDITOR=/usr/local/bin/vim
 
 # Opt-out Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
-
-. /Users/quetzal/repos/torch/install/bin/torch-activate
