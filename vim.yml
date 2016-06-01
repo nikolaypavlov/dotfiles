@@ -8,4 +8,7 @@
     - git:
         repo: https://github.com/VundleVim/Vundle.vim.git
         dest: ~/.vim/bundle/Vundle.vim
+
+    - file: path=~/.vim/spell state=directory
+
     - shell: vim -i NONE -c VundleUpdate -c quitall

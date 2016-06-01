@@ -19,23 +19,6 @@
       when: ansible_distribution == 'Ubuntu'
       tags: always
 
-    - apt_repository: repo='ppa:staticfloat/juliareleases' state=present
-      sudo: yes
-      when: ansible_distribution == 'Ubuntu'
-      tags: always
-
-    - apt_repository: repo='ppa:staticfloat/julia-deps' state=present
-      sudo: yes
-      when: ansible_distribution == 'Ubuntu'
-      tags: always
-
-    - apt: name={{ item }} state=latest
-      sudo: yes
-      with_items:
-        - julia
-      when: ansible_distribution == 'Ubuntu'
-      tags: always
-
     - easy_install: name=pip
       sudo: yes
       tags: always
@@ -47,8 +30,4 @@
         - ansible-lint
         - numpy
         - pandas
-        - ipython[notebook]
-      tags: always
-
-    - shell: julia -e 'Pkg.update(); Pkg.add("IJulia")'
       tags: always
